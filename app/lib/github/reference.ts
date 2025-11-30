@@ -2,11 +2,11 @@ import { verifySession } from "@/app/actions/session";
 import { Octokit } from "@octokit/core"
 import { RequestError } from "@octokit/request-error";
 
-const session = await verifySession()
-const octokit = new Octokit({ auth: session.accessToken });
-
 export const updateMainBranchReference = async (owner: string, repo: string, newReference: string) => {
+    const session = await verifySession()
+    const octokit = new Octokit({ auth: session.accessToken });
     const branch = "heads/main"
+    
     try {
         const response = await octokit.request('PATCH /repos/{owner}/{repo}/git/refs/{ref}', {
             owner: owner,

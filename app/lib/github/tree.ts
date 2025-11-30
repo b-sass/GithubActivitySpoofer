@@ -4,10 +4,10 @@ import { RequestError } from "@octokit/request-error";
 import { Endpoints } from "@octokit/types";
 import { verifySession } from "@/app/actions/session";
 
-const session = await verifySession()
-const octokit = new Octokit({ auth: session.accessToken });
-
 export const getTreeObject = async (owner: string, repo: string, sha: string) => {
+    const session = await verifySession()
+    const octokit = new Octokit({ auth: session.accessToken });
+    
     try {
         const response = await octokit.request('GET /repos/{owner}/{repo}/git/trees/{tree_sha}', {
             owner: owner,
@@ -28,6 +28,9 @@ export const getTreeObject = async (owner: string, repo: string, sha: string) =>
 };
 
 export const createTreeObject = async (owner: string, repo: string, newFile: treeFile, base_tree: string) => {
+    const session = await verifySession()
+    const octokit = new Octokit({ auth: session.accessToken });
+
     try {
         const response = await octokit.request('POST /repos/{owner}/{repo}/git/trees', {
             owner: owner,

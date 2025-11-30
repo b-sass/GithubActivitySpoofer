@@ -2,10 +2,10 @@ import { verifySession } from "@/app/actions/session";
 import { Octokit } from "@octokit/core"
 import { RequestError } from "@octokit/request-error"
 
-const session = await verifySession()
-const octokit = new Octokit({ auth: session.accessToken });
-
 export const createRepo = async () => {
+  const session = await verifySession()
+  const octokit = new Octokit({ auth: session.accessToken });
+
   try {
     const response = await octokit.request('POST /user/repos', {
       name: 'ActivitySpoofer',
@@ -26,6 +26,9 @@ export const createRepo = async () => {
 }
 
 export const getRepo = async (owner: string, repo: string) =>  {
+  const session = await verifySession()
+  const octokit = new Octokit({ auth: session.accessToken });
+
   try {
     const response = await octokit.request('GET /repos/{owner}/{repo}', {
       owner: owner,
@@ -50,6 +53,9 @@ export const getRepo = async (owner: string, repo: string) =>  {
 }
 
 export const getRepoFile = async (owner: string, repo: string) => {
+  const session = await verifySession()
+  const octokit = new Octokit({ auth: session.accessToken });
+
   try {
     const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
       owner: owner,
@@ -74,6 +80,8 @@ export const getRepoFile = async (owner: string, repo: string) => {
 }
 
 export const createRepoFile = async (owner: string, repo: string, commiter: {name: string, email: string}) => {
+  const session = await verifySession()
+  const octokit = new Octokit({ auth: session.accessToken });
   const path = "spoofer.txt"
 
   try {

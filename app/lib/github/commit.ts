@@ -2,11 +2,11 @@ import { verifySession } from "@/app/actions/session";
 import { Octokit } from "@octokit/core"
 import { RequestError } from "@octokit/request-error";
 
-const session = await verifySession()
-const octokit = new Octokit({ auth: session.accessToken });
-
 // Get the most recent commit from the main branch
 export const getLatestCommit = async (owner: string, repo: string, ref: string) => {
+    const session = await verifySession()
+    const octokit = new Octokit({ auth: session.accessToken });
+    
     try {
         const response = await octokit.request('GET /repos/{owner}/{repo}/commits/{ref}', {
             owner: owner,
@@ -28,7 +28,10 @@ export const getLatestCommit = async (owner: string, repo: string, ref: string) 
 
 export const createCommitObject = async (owner: string, repo: string, parentCommit: string, 
     newTree: string, author: {name: string, email: string}) => {
-    
+        
+    const session = await verifySession()
+    const octokit = new Octokit({ auth: session.accessToken });
+
     try {
         const response = await octokit.request('POST /repos/{owner}/{repo}/git/commits', {
             owner: owner,

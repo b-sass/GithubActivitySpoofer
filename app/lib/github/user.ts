@@ -1,12 +1,11 @@
-"use server"
 import { verifySession } from "@/app/actions/session"
 import { Octokit } from "@octokit/core"
 import { cache } from "react"
 
-const session = await verifySession()
-const octokit = new Octokit({ auth: session.accessToken });
-
 export const getGithubUser = cache(async () => {
+    const session = await verifySession()
+    const octokit = new Octokit({ auth: session.accessToken });
+
     try {
         const response = await octokit.request('GET /user', {
             headers: {
@@ -14,7 +13,7 @@ export const getGithubUser = cache(async () => {
             }
         })
         console.log("Found user")
-        return response
+        return response.data
     } catch (e) {
         console.log(`Could not get user\nError: ${e}`)
         return null
@@ -22,6 +21,9 @@ export const getGithubUser = cache(async () => {
 })
 
 export const getGithubUserEmail = async () => {
+    const session = await verifySession()
+    const octokit = new Octokit({ auth: session.accessToken });
+
     try {
         const response = await octokit.request('GET /user/emails', {
             headers: {
