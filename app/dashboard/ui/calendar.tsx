@@ -3,6 +3,7 @@ import { ReactNode, useState } from "react";
 import { spoofCommit } from "@/app/actions/commitSpoofer";
 import Row from "./row";
 import "./styles.css"
+import { getGithubUser } from "@/app/lib/github/user";
 
 export default function Calendar({year}: {year: number}): ReactNode {
   
@@ -41,7 +42,9 @@ export default function Calendar({year}: {year: number}): ReactNode {
 }
 
 const sendData = async (dates: string[]) => {
-  await spoofCommit("", "activitySpoofer", dates)  
+  const userData = await getGithubUser()
+  console.log(userData)
+  await spoofCommit(userData!.login, userData!.id, "activitySpoofer", dates)  
   // const user = await getGithubUserEmail()
   // console.log(user)
 }

@@ -16,22 +16,22 @@ const checkRepo = async (username: string, repoName: string) => {
     return repo
 }
 
-const setupRepo = async (username: string, repoName: string) => {
+const setupRepo = async (username: string, repoName: string, userID: number) => {
     // Check if file exists in repo
     const file = await getRepoFile(username, repoName)
     if (!file) {
-        return await createRepoFile(username, repoName, {name: "", email: ""})
+        return await createRepoFile(username, repoName, {name: username, email: `${userID}+${username}@users.noreply.github.com`})
     }
     return file
 }
 
-export const spoofCommit = async (username: string, repositoryName: string, dates: string[]) => {
+export const spoofCommit = async (username: string, userID: number, repositoryName: string, dates: string[]) => {
     
     // Repository setup
     const repo = await checkRepo(username, repositoryName)
     if (!repo) { return null }
     
-    const spooferFile = setupRepo(username, repositoryName)
+    const spooferFile = setupRepo(username, repositoryName, userID)
     if (!spooferFile) { return null }
     
     for (const date of dates) {
@@ -87,8 +87,8 @@ export const spoofCommit = async (username: string, repositoryName: string, date
         
         // Create the author object
         const author = {
-            name:  "",
-            email: "",
+            name:  username,
+            email: `${userID}+${username}@users.noreply.github.com`,
             date: date + "T12:00:00Z" // DST workaround
         };
         
