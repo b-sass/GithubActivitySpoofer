@@ -3,7 +3,9 @@ import Link from "next/link";
 
 export default function Home() {
   const clientID = process.env.CLIENT_ID
-  const uri = "http://localhost:3000/auth"
+  const env = process.env.NODE_ENV
+  const uri = env == "development" ? "http://localhost:3000/auth" : "https://github-activity-spoofer.vercel.app/auth"
+
 
   return(
     <div>
