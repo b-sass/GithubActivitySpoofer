@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+td:hover {
+  background-color: var(--color-gray-300);
+}
+
+table, table > * {
+  -webkit-user-drag: none;
+  user-select: none;
+}
