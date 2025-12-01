@@ -1,7 +1,6 @@
 "use server"
 import "server-only"
 import { cookies } from "next/headers"
-import { cache } from "react"
 import { redirect } from "next/navigation"
 
 export const createSession = async (token: string) => {
@@ -18,7 +17,7 @@ export const createSession = async (token: string) => {
   })
 }
 
-export const verifySession = cache(async () => {
+export const verifySession = async () => {
   const cookie = (await cookies()).get('session')?.value
   const session = await JSON.parse(cookie!)
  
@@ -27,4 +26,4 @@ export const verifySession = cache(async () => {
   }
  
   return { isAuth: true, accessToken: session.access_token }
-})
+}

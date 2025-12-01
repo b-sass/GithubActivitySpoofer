@@ -1,16 +1,21 @@
+"use client"
 import { signup } from "../actions/signup"
-import { redirect } from "next/navigation"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+// type SearchParams = {
+//     searchParams: Promise<Record<string, string>>;
+// };
 
-type SearchParams = {
-    searchParams: Promise<Record<string, string>>;
-};
+export default function Auth() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const code = searchParams.get("code")
 
-export default async function Auth({searchParams}: SearchParams) {
-  const code = (await searchParams).code
-  console.log(code)
-
-  signup(code)
-  redirect("/dashboard")
+  useEffect(() => {
+    signup(code)
+    router.push("/dashboard")
+  })
   
   return(
     <>Auth</>
