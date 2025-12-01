@@ -1,6 +1,7 @@
 import Calendar from "./ui/calendar";
 import "../global.css"
 import { getGithubUser } from "../lib/github/user";
+import Link from "next/link";
 
 export default async function Dashboard() {
 
@@ -9,7 +10,7 @@ export default async function Dashboard() {
   return(
     <div className="flex flex-col justify-center items-center gap-4">
       <h1>Dashboard</h1>
-      <a href="https://github.com/apps/activitySpoofer/installations/new" target="_blank" rel="noopener noreferrer">Install app</a>
+      <Link href="https://github.com/apps/activitySpoofer/installations/new">Install app</Link>
       <Calendar year={2025}></Calendar>
     </div>
   );
