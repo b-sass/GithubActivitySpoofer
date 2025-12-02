@@ -75,8 +75,8 @@ export const getRepoFile = async (owner: string, repo: string) => {
         console.log(`Could not get repository contents.\nError: ${e}`)
       }
     }
+    return null
   }
-  return null
 }
 
 export const createRepoFile = async (owner: string, repo: string, commiter: {name: string, email: string}) => {
