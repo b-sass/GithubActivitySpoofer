@@ -1,7 +1,7 @@
-import Calendar from "./ui/calendar";
 import "../global.css"
 import { getGithubUser } from "../lib/github/user";
 import Link from "next/link";
+import { CalendarContainer } from "./ui/CalendarContainer";
 
 export default async function Dashboard() {
 
@@ -11,7 +11,7 @@ export default async function Dashboard() {
     <div className="flex flex-col justify-center items-center gap-4">
       <h1>Dashboard</h1>
       <Link href="https://github.com/apps/activitySpoofer/installations/new">Install app</Link>
-      <Calendar year={2025}></Calendar>
+      <CalendarContainer />
     </div>
   );
 }
