@@ -31,9 +31,9 @@ export const spoofCommit = async (username: string, userID: number, repositoryNa
     const repo = await checkRepo(username, repositoryName)
     if (!repo) { return null }
     
-    const spooferFile = setupRepo(username, repositoryName, userID)
+    const spooferFile = await setupRepo(username, repositoryName, userID)
     if (!spooferFile) { return null }
-    
+
     for (const date of dates) {
         // Getting git objects
         const oldCommit = await getLatestCommit(
