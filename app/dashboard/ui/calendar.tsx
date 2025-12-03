@@ -5,7 +5,7 @@ import Row from "./row";
 import "./styles.css"
 import { getGithubUser } from "@/app/lib/github/user";
 
-export default function Calendar({year}: {year: number}): ReactNode {
+export default function Calendar({currentYear}: {currentYear: number}): ReactNode {
   
   const arr = new Array(7).fill(0)
   const [dates, setDates] = useState<Map<string, boolean>>(new Map())
@@ -32,7 +32,7 @@ export default function Calendar({year}: {year: number}): ReactNode {
     <table className="flex flex-col p-0">
       <tbody>
         {arr.map((n, i) => (
-          <Row key={i} day={i+1} year={year} handleDates={handleDates}></Row>  
+          <Row key={i} day={i+1} year={currentYear} handleDates={handleDates}></Row>  
         ))}
       </tbody>
     </table>
